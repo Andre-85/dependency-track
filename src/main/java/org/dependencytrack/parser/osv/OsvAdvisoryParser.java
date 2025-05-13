@@ -194,6 +194,7 @@ public class OsvAdvisoryParser {
             if (affectedPackage == null) {
                 continue;
             }
+
             affectedPackage.setLowerVersionRange(introduced);
 
             if (i + 1 < rangeEvents.length()) {
@@ -212,6 +213,10 @@ public class OsvAdvisoryParser {
                     affectedPackage.setUpperVersionRangeExcluding(limit);
                     i++;
                 }
+            }
+            else {
+                // This is covers without upper range, i.e. unfixed CVE's
+                affectedPackage.setUpperVersionRangeIncluding("*");
             }
 
             // Special treatment for GitHub: https://github.com/github/advisory-database/issues/470

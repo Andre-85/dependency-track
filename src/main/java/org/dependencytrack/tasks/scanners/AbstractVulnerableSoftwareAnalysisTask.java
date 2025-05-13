@@ -65,7 +65,7 @@ public abstract class AbstractVulnerableSoftwareAnalysisTask extends BaseCompone
             }
         }
     }
-    
+
     private Boolean maybeMatchCpe(final VulnerableSoftware vs, final Cpe targetCpe, final String targetVersion) {
         if (targetCpe == null || vs.getCpe23() == null) {
             return null;
@@ -156,7 +156,7 @@ public abstract class AbstractVulnerableSoftwareAnalysisTask extends BaseCompone
         if (target.getVersionParts().isEmpty()) {
             return false;
         }
-        if (result && vs.getVersionEndExcluding() != null && !vs.getVersionEndExcluding().isEmpty()) {
+        if (result && vs.getVersionEndExcluding() != null && !vs.getVersionEndExcluding().isEmpty() && !"*".equals(vs.getVersionEndExcluding())) {
             final ComponentVersion endExcluding = new ComponentVersion(vs.getVersionEndExcluding());
             result = endExcluding.compareTo(target) > 0;
         }
@@ -164,7 +164,7 @@ public abstract class AbstractVulnerableSoftwareAnalysisTask extends BaseCompone
             final ComponentVersion startExcluding = new ComponentVersion(vs.getVersionStartExcluding());
             result = startExcluding.compareTo(target) < 0;
         }
-        if (result && vs.getVersionEndIncluding() != null && !vs.getVersionEndIncluding().isEmpty()) {
+        if (result && vs.getVersionEndIncluding() != null && !vs.getVersionEndIncluding().isEmpty() && !"*".equals(vs.getVersionEndIncluding())) {
             final ComponentVersion endIncluding = new ComponentVersion(vs.getVersionEndIncluding());
             result &= endIncluding.compareTo(target) >= 0;
         }
