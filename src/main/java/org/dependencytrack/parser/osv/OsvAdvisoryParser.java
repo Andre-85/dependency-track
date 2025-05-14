@@ -215,8 +215,8 @@ public class OsvAdvisoryParser {
                 }
             }
             else {
-                // This is covers without upper range, i.e. unfixed CVE's
-                affectedPackage.setUpperVersionRangeIncluding("*");
+                // This is covers without upper range, i.e. unfixed CVE's. Use - for what means in CPE terms NA (not applicable, not available)
+                affectedPackage.setUpperVersionRangeIncluding("-");
             }
 
             // Special treatment for GitHub: https://github.com/github/advisory-database/issues/470
