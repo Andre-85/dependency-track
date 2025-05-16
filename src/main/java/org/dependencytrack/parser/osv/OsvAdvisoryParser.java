@@ -214,10 +214,6 @@ public class OsvAdvisoryParser {
                     i++;
                 }
             }
-            else {
-                // This is covers without upper range, i.e. unfixed CVE's. Use - for what means in CPE terms NA (not applicable, not available)
-                affectedPackage.setUpperVersionRangeIncluding("-");
-            }
 
             // Special treatment for GitHub: https://github.com/github/advisory-database/issues/470
             final JSONObject databaseSpecific = vulnerability.optJSONObject("database_specific");
@@ -232,6 +228,11 @@ public class OsvAdvisoryParser {
                         affectedPackage.setUpperVersionRangeExcluding(lastAffectedRange.replaceAll("<", "").trim());
                     }
                 }
+            }
+
+            if (affectedPackage.getUpperVersionRangeExcluding() == null && affectedPackage.getUpperVersionRangeIncluding() == null) {
+                // This is covers without upper range, i.e. unfixed CVE's. Use - for what means in CPE terms NA (not applicable, not available)
+                affectedPackage.setUpperVersionRangeIncluding("-");
             }
 
             affectedPackages.add(affectedPackage);
