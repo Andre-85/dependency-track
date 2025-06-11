@@ -128,11 +128,6 @@ public class ComponentVersion implements Comparable<ComponentVersion> {
 
         // Debian/Ubuntu specific
         if(this.ecosystem.getName().equals("deb")) {
-            // When no epoch is given, use default epoch 0
-            if (!version.contains(":")) {
-               version = "0:" + version;
-            }
-
            // So we replace '-' which acts a blocks splitter (split between upstream and debian version) by the block-splitter "\n" since
            // also upstream versions uses sometimes '-'. But to follow semver with debian sorting it should be debian pre-splitter '~'
            int debianSplitterIndex = version.lastIndexOf("-");
